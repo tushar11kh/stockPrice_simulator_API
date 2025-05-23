@@ -13,14 +13,14 @@ app.get('/', (req:Request,res:Response) =>{
 
 const simulateStockPrices = () => {
     setInterval(() => {
-
-        stocks.forEach(
-            stock=>{
-                const priceChange = (Math.random()-0.5)*10;
-                stock.price = parseFloat((stock.price+priceChange).toFixed());
-            });
+        stocks.forEach(stock => {
+            const priceChange = (Math.random() - 0.5) * 10;
+            const newPrice = stock.price + priceChange;
+            stock.price = parseFloat(Math.max(newPrice, 0).toFixed(2)); // Ensure price ≥ 0, with 2 decimal precision
+        });
     }, 1000);
 };
+
 
 simulateStockPrices();
 
